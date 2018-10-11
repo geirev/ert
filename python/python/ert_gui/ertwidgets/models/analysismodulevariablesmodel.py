@@ -20,6 +20,9 @@ from ert_gui.ertwidgets.models.ertmodel import getRealizationCount
 class AnalysisModuleVariablesModel(object):
 
     _VARIABLE_NAMES = {
+            "STEPLENGTH": {"type": float, "min": 0.1, "max": 0.90, "step":0.1, "labelname":"Gauss Newton Steplength", "pos":0},
+            "GAUSS_NEWTON_CONV": {"type": float, "min": 0.00000001, "max": 0.01, "step":0.001, "labelname":"Gauss Newton Convergence Criteria", "pos":1},
+            "MAX_GAUSS_NEWTON_IT": {"type": int, "min": 1, "max": 100, "step":1, "labelname":"Maximum Number of Gauss Newton Iterations", "pos":2},
             "LAMBDA0": {"type": float, "min": -1, "max": 10000000000000, "step":1.0, "labelname":"Initial Lambda", "pos":0},
             "USE_PRIOR": {"type": bool, "labelname":"Use both Prior and Observation Variability", "pos":1},
             "LAMBDA_REDUCE": {"type": float, "min": 0, "max": 1, "step":0.1, "labelname":"Lambda Reduction Factor", "pos":2},
@@ -28,7 +31,7 @@ class AnalysisModuleVariablesModel(object):
             "LOG_FILE": {"type": str, "labelname":"Log File", "pos":5},
             "CLEAR_LOG": {"type": bool, "labelname":"Clear Existing Log File", "pos":6},
             "LAMBDA_RECALCULATE": {"type": bool, "labelname":"Recalculate Lambda after each Iteration", "pos":7},
-            "ENKF_TRUNCATION" :{"type": float, "min": 0, "max": 1, "step":0.1, "labelname":"Singular value truncation", "pos":9},
+            "ENKF_TRUNCATION" :{"type": float, "min": 0.5, "max": 1, "step":0.1, "labelname":"Singular value truncation", "pos":9},
             "CV_NFOLDS": {"type": int, "min": 2, "max": 9999, "step":1.0, "labelname":"CV_NFOLDS", "pos":11},
             "FWD_STEP_R2_LIMIT":{"type": float, "min": -1, "max": 100, "step":1.0, "labelname":"FWD_STEP_R2_LIMIT", "pos":12},
             "CV_PEN_PRESS": {"type": bool, "labelname":"CV_PEN_PRESS", "pos":13}
