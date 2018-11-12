@@ -30,7 +30,9 @@ class AnalysisModuleVariablesModel(object):
             "LOG_FILE": {"type": str, "labelname":"Log File", "pos":5},
             "CLEAR_LOG": {"type": bool, "labelname":"Clear Existing Log File", "pos":6},
             "LAMBDA_RECALCULATE": {"type": bool, "labelname":"Recalculate Lambda after each Iteration", "pos":7},
-            "ENKF_TRUNCATION" :{"type": float, "min": 0.5, "max": 1, "step":0.1, "labelname":"Singular value truncation", "pos":9},
+            "ENKF_TRUNCATION" :{"type": float, "min": -2.0, "max": 1, "step":0.01, "labelname":"Singular value truncation", "pos":9},
+            "ENKF_SUBSPACE_DIMENSION" :{"type": int, "min": -2, "max": 10000000000000, "step":1, "labelname":"Number of singular values", "pos":10},
+            "ENKF_NCOMP" :{"type": int, "min": 1, "max": 10000000000000, "step":1, "labelname":"Number of singular values", "pos":10},
             "CV_NFOLDS": {"type": int, "min": 2, "max": 9999, "step":1.0, "labelname":"CV_NFOLDS", "pos":11},
             "FWD_STEP_R2_LIMIT":{"type": float, "min": -1, "max": 100, "step":1.0, "labelname":"FWD_STEP_R2_LIMIT", "pos":12},
             "CV_PEN_PRESS": {"type": bool, "labelname":"CV_PEN_PRESS", "pos":13}

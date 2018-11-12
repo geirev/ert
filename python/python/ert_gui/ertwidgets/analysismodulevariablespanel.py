@@ -15,7 +15,6 @@
 #  for more details.
 from functools import partial
 import sys
-import math
 
 try:
   from PyQt4.QtGui import QDoubleSpinBox, QWidget, QFormLayout, QCheckBox, QLineEdit, QHBoxLayout, QSpinBox, QLabel
@@ -116,7 +115,7 @@ class AnalysisModuleVariablesPanel(QWidget):
 
     def createDoubleSpinBox(self, variable_name, variable_value, variable_type, analysis_module_variables_model):
         spinner = QDoubleSpinBox()
-        spinner.setDecimals(4)
+        spinner.setDecimals(6)
         spinner.setMinimumWidth(75)
         spinner.setMaximum(analysis_module_variables_model.getVariableMaximumValue(variable_name))
         spinner.setMinimum(analysis_module_variables_model.getVariableMinimumValue(variable_name))
