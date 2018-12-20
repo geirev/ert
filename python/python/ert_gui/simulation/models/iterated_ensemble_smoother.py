@@ -61,7 +61,7 @@ class IteratedEnsembleSmoother(BaseRunModel):
         self.ert().getEnkfSimulationRunner().runWorkflows(HookRuntime.POST_UPDATE)
 
     def runSimulations(self, arguments):
-        phase_count = getNumberOfIterations() + 1
+        phase_count = getNumberOfIterations()
         self.setPhaseCount(phase_count)
 
         analysis_module = self.setAnalysisModule(arguments["analysis_module"])
@@ -76,32 +76,35 @@ class IteratedEnsembleSmoother(BaseRunModel):
         analysis_iter_config = analysis_config.getAnalysisIterConfig()
         num_retries_per_iteration = analysis_iter_config.getNumRetries()
         num_tries = 0
-        current_iteration = 1
 
-        while current_iteration <= getNumberOfIterations() and num_tries < num_retries_per_iteration:
+        while True:
             pre_analysis_iter_num = analysis_module.getInt("ITER")
             self.analyzeStep( run_context )
-            post_analysis_iter_num = analysis_module.getInt("ITER")
+            current_iter = analysis_module.getInt("ITER")
 
             analysis_success = False
-            if  post_analysis_iter_num > pre_analysis_iter_num:
+            if  current_iter > pre_analysis_iter_num:
                 analysis_success = True
 
             if analysis_success:
-                current_iteration += 1
-                run_context = self.create_context( arguments, current_iteration, prior_context = run_context )
+                run_context = self.create_context( arguments, current_iter, prior_context = run_context )
                 self.ert().getEnkfFsManager().switchFileSystem(run_context.get_target_fs())
                 self._runAndPostProcess(run_context)
                 num_tries = 0
             else:
-                run_context = self.create_context( arguments, current_iteration, prior_context = run_context , rerun = True)
+                run_context = self.create_context( arguments, current_iter, prior_context = run_context , rerun = True)
                 self._runAndPostProcess(run_context)
                 num_tries += 1
+                if num_tries >= num_retries_per_iteration:
+                    break
 
-        if current_iteration == phase_count:
+            if current_iter == getNumberOfIterations():
+                break
+
+        if current_iter == phase_count:
             self.setPhase(phase_count, "Simulations completed.")
         else:
-            raise ErtRunError("Iterated Ensemble Smoother stopped: maximum number of iteration retries (%d retries) reached for iteration %d" % (num_retries_per_iteration, current_iteration))
+            raise ErtRunError("Iterated Ensemble Smoother stopped: maximum number of iteration retries (%d retries) reached for iteration %d" % (num_retries_per_iteration, current_iter))
 
         return run_context
 
