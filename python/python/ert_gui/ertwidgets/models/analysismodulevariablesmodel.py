@@ -20,8 +20,13 @@ from ert_gui.ertwidgets.models.ertmodel import getRealizationCount
 class AnalysisModuleVariablesModel(object):
 
     _VARIABLE_NAMES = {
-            "STEPLENGTH": {"type": float, "min": 0.1, "max": 0.90, "step":0.1, "labelname":"Gauss Newton Steplength", "pos":0},
+            "STEPLENGTH": {"type": float, "min": 0.1, "max": 1.00, "step":0.1, "labelname":"Gauss Newton Steplength", "pos":0},
             "GAUSS_NEWTON_CONV": {"type": float, "min": 0.00000001, "max": 0.01, "step":0.001, "labelname":"Gauss Newton Convergence Criteria", "pos":1},
+            "MAX_GAUSS_NEWTON_IT": {"type": int, "min": 1, "max": 100, "step":1, "labelname":"Maximum Number of Gauss Newton Iterations", "pos":2},
+         #  "IES_SUBSPACE": {"type": bool, "labelname":"Use subspace inversion scheme", "pos":3},
+         #  "IES_OBSR": {"type": int, "min": 1, "max": 3, "step":1, "labelname":"Use exact or approximate measurement error covariance R", "pos":4},
+         #  "IES_DEBUG": {"type": bool, "labelname":"Print extensive log for IES analysis steps", "pos":5},
+         #  "IES_LOGFILE": {"type": str, "labelname":"IES Log File", "pos":6},
             "LAMBDA0": {"type": float, "min": -1, "max": 10000000000000, "step":1.0, "labelname":"Initial Lambda", "pos":0},
             "USE_PRIOR": {"type": bool, "labelname":"Use both Prior and Observation Variability", "pos":1},
             "LAMBDA_REDUCE": {"type": float, "min": 0, "max": 1, "step":0.1, "labelname":"Lambda Reduction Factor", "pos":2},
