@@ -15,7 +15,6 @@
 #  for more details.
 from functools import partial
 import sys
-import math
 
 try:
   from PyQt4.QtGui import QDoubleSpinBox, QWidget, QFormLayout, QCheckBox, QLineEdit, QHBoxLayout, QSpinBox, QLabel
@@ -70,6 +69,16 @@ class AnalysisModuleVariablesPanel(QWidget):
                         "<span style=\"font-size:12pt; font-weight:300;font-style:italic;\"> Initial Lambda of -1.00 signifies that the value will be calculated</span>")
                     layout.addRow(label, None)
 
+                if variable_name == "IES_INVERSION":
+                    label = QLabel("<span style=\"font-size:10pt; font-weight:300;font-style:italic;\">   0: Exact inversion with diagonal R=I</span>")
+                    layout.addRow(label, None)
+                    label = QLabel("<span style=\"font-size:10pt; font-weight:300;font-style:italic;\">   1: Subspace inversion with exact R  </span>")
+                    layout.addRow(label, None)
+                    label = QLabel("<span style=\"font-size:10pt; font-weight:300;font-style:italic;\">   2: Subspace inversion using R=EE'   </span>")
+                    layout.addRow(label, None)
+                    label = QLabel("<span style=\"font-size:10pt; font-weight:300;font-style:italic;\">   3: Subspace inversion using E       </span>")
+                    layout.addRow(label, None)
+
         self.setLayout(layout)
         self.blockSignals(False)
 
@@ -116,12 +125,6 @@ class AnalysisModuleVariablesPanel(QWidget):
 
     def createDoubleSpinBox(self, variable_name, variable_value, variable_type, analysis_module_variables_model):
         spinner = QDoubleSpinBox()
-#        minvalge=analysis_module_variables_model.getVariableMinimumValue(variable_name)
-#        minvalge=0.00034
-#        logvalge=-math.log10(minvalge)
-#        decimalsge=math.ceil(logvalge)
-#        spinner.setDecimals(decimalsge)
-#        spinner.setDecimals(max(2,math.ceil(-math.log10(max(0.00000001,abs(analysis_module_variables_model.getVariableMinimumValue(variable_name)))))))
         spinner.setDecimals(6)
         spinner.setMinimumWidth(75)
         spinner.setMaximum(analysis_module_variables_model.getVariableMaximumValue(variable_name))
