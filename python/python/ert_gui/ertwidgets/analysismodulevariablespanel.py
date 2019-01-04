@@ -110,6 +110,7 @@ class AnalysisModuleVariablesPanel(QWidget):
 
     def createLineEdit(self, variable_name, variable_value, variable_type):
         spinner = QLineEdit()
+        spinner.setMinimumWidth(250)
         if variable_value == "None":
             spinner.setText("")
         else:
