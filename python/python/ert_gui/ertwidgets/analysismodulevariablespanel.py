@@ -79,6 +79,12 @@ class AnalysisModuleVariablesPanel(QWidget):
                     label = QLabel("<span style=\"font-size:10pt; font-weight:300;font-style:italic;\">   3: Subspace inversion using E       </span>")
                     layout.addRow(label, None)
 
+                if variable_name == "IES_STEPLENGTH":
+                    label = QLabel("<span style=\"font-size:10pt; font-weight:300;font-style:italic;\">   A steplength of 0.6 should be a good start</span>")
+                    layout.addRow(label, None)
+                    label = QLabel("<span style=\"font-size:10pt; font-weight:300;font-style:italic;\">   A steplength of 1.0 and one iteration results in ES update</span>")
+                    layout.addRow(label, None)
+
         self.setLayout(layout)
         self.blockSignals(False)
 
